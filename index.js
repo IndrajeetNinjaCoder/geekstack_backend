@@ -3,8 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const trainingRoutes = require("./routes/training");
-const multer=require('multer');
-const upload=multer({dest:"uploads/"});
+const multer = require('multer');
+const upload = multer({ dest: "uploads/" });
 
 const app = express();
 
@@ -14,7 +14,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 
-app.use('/uploads',express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -29,7 +29,7 @@ mongoose
   });
 
 app.use("/api/auth", authRoutes);
-app.use("/api/training",upload.single("image"), trainingRoutes);
+app.use("/api/training", upload.single("image"), trainingRoutes);
 
 const server = app.listen(process.env.PORT, () =>
   console.log(`Server started on ${process.env.PORT}`)
